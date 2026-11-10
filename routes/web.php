@@ -7,6 +7,7 @@ Route::redirect('/', '/docs');
 
 // Mulai & Theming
 Route::view('/docs', 'docs.index')->name('docs.index');
+Route::view('/docs/instalasi', 'docs.installation')->name('docs.installation');
 Route::view('/docs/theming', 'docs.theming')->name('docs.theming');
 
 // Komponen UI

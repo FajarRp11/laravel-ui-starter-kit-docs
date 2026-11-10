@@ -1,11 +1,18 @@
 @props([
     'code' => null,
-    'language' => 'blade',
+    'language' => null,
+    'lang' => null,
+    'embedded' => false,
 ])
 
 @php
+    $resolvedLanguage = $lang ?? $language ?? 'blade';
     $content = $code ?? (string) $slot;
     $content = trim($content);
+
+    $wrapperClasses = $embedded
+        ? 'relative group bg-surface-muted/60 overflow-hidden'
+        : 'relative group rounded-lg bg-surface-muted border border-border overflow-hidden my-4';
 @endphp
 
 <div
@@ -17,10 +24,10 @@
             setTimeout(() => this.copied = false, 2000);
         }
     }"
-    class="relative group rounded-lg bg-surface-muted border border-border overflow-hidden my-4"
+    {{ $attributes->merge(['class' => $wrapperClasses]) }}
 >
     <div class="flex items-center justify-between px-4 py-2 border-b border-border bg-surface/50 text-xs text-text-muted font-mono">
-        <span class="uppercase tracking-wider font-semibold text-[11px]">{{ $language }}</span>
+        <span class="uppercase tracking-wider font-semibold text-[11px]">{{ $resolvedLanguage }}</span>
         <button
             type="button"
             @click="copy()"
@@ -39,4 +46,3 @@
 
     <pre class="p-4 text-xs sm:text-sm font-mono text-text overflow-x-auto leading-relaxed selection:bg-primary/20"><code x-ref="codeContent">{{ $content }}</code></pre>
 </div>
-

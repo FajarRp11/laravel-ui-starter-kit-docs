@@ -59,7 +59,7 @@
     {{-- Code Block --}}
     <div x-show="showCode" x-collapse>
         <div class="border-t border-border">
-            <x-docs.code :code="$code" language="blade" />
+            <x-docs.code :code="$code" language="blade" embedded />
         </div>
     </div>
 </div>
